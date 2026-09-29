@@ -1,13 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>首页 · Vite 多视图演示</title>
+    <script>
+      // 首屏渲染前同步回填主题，保证深色用户刷新不闪白。
+      // 键名与 src/theme.ts 的 THEME_STORAGE_KEY 刻意保持一致（原生脚本无法
+      // import TS 常量）；取值规则也与该文件相同：键存在且为 light/dark 时
+      // 以用户显式值为准，否则跟随 prefers-color-scheme。
+      ;(function (g) {
+        var pref = null
+        try {
+          pref = g.localStorage.getItem('vite-deploy:theme')
+        } catch (e) {
+          pref = null
+        }
+        if (pref !== 'light' && pref !== 'dark') {
+          pref = g.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+        }
+        g.document.documentElement.setAttribute('data-theme', pref)
+        g.document.documentElement.style.colorScheme = pref
+      })(
+        // 浏览器全局脚本中 this === window；以 this 传参而非裸用 window，
+        // 这样同一段脚本在隔离作用域的测试运行器中也能显式注入窗口对象。
+        this
+      )
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+
+
+
+
+
+
