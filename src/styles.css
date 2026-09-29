@@ -1,0 +1,212 @@
+/* 主题变量由 <html data-theme="..."> 切换；首屏前 index.html 内联脚本已设好。 */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1c2230;
+  --muted: #5b6472;
+  --border: #d9dde3;
+  --accent: #2f6fed;
+  --accent-contrast: #ffffff;
+  --active-bg: #e7efff;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #12151c;
+  --surface: #1a1f2a;
+  --text: #e6e9ef;
+  --muted: #98a2b3;
+  --border: #2c3442;
+  --accent: #6ea0ff;
+  --accent-contrast: #0b1220;
+  --active-bg: #22304a;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'PingFang SC',
+    'Microsoft YaHei',
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  background: color-mix(in srgb, var(--muted) 14%, transparent);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.92em;
+}
+
+.app-shell {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 20px 72px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.app-header h1 {
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.theme-switcher {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.theme-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.theme-btn:hover {
+  border-color: var(--accent);
+}
+
+.theme-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.theme-source-badge {
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding: 2px 8px;
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-item:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--muted) 10%, transparent);
+}
+
+.nav-item.active {
+  color: var(--accent);
+  background: var(--active-bg);
+  font-weight: 600;
+}
+
+.app-main {
+  flex: 1;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.kv {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.kv th,
+.kv td {
+  text-align: left;
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+}
+
+.kv th {
+  width: 120px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.status-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.status-bar strong {
+  color: var(--accent);
+}

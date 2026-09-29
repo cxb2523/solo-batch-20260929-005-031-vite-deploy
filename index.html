@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>多视图站点</title>
+    <script>
+      // 防闪白：首屏渲染前（CSS/图片/模块都还没动）同步解析主题。
+      // 键名必须与 src/theme/ThemeContext.tsx 的 THEME_STORAGE_KEY 逐字一致。
+      // 三态语义：localStorage 里有合法 light/dark -> 用户选择；否则跟随系统。
+      (function () {
+        var KEY = 'app.theme';
+        var stored = null;
+        try {
+          var raw = window.localStorage.getItem(KEY);
+          if (raw === 'light' || raw === 'dark') stored = raw;
+        } catch (e) {}
+        var resolved =
+          stored !== null
+            ? stored
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.setAttribute('data-theme', resolved);
+        document.documentElement.style.colorScheme = resolved;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
